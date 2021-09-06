@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:estado_singleton_app/models/usuario.dart';
+import 'package:estado_singleton_app/bloc/usuario/usuario_bloc.dart';
 
 class Pagina1Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Pagina1")),
-      body: InformacionUsuario(),
+      appBar: AppBar(
+        title: Text("Pagina1"),
+        actions: [
+          MaterialButton(
+              onPressed: () {
+                BlocProvider.of<UsuarioBloc>(context).add(EliminarUsuario());
+              },
+              child: Icon(Icons.delete)),
+        ],
+      ),
+      body: BlocBuilder<UsuarioBloc, UsuarioState>(
+        builder: (_, state) {
+          if (state.existeUsuario) {
+            return InformacionUsuario(state.usuario!);
+          } else {
+            return Center(
+              child: Text("No hay un usuario seleccionado"),
+            );
+          }
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
         onPressed: () => Navigator.pushNamed(context, "pagina2"),
@@ -15,6 +38,10 @@ class Pagina1Page extends StatelessWidget {
 }
 
 class InformacionUsuario extends StatelessWidget {
+  final Usuario usuario;
+
+  const InformacionUsuario(this.usuario);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,14 +54,21 @@ class InformacionUsuario extends StatelessWidget {
           Text("General",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
-          ListTile(title: Text("Nombre: ")),
-          ListTile(title: Text("Edad: ")),
+          ListTile(title: Text("Nombre: ${usuario.nombre}")),
+          ListTile(title: Text("Edad: ${usuario.edad}")),
           Text("Profesiones",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
-          ListTile(title: Text("Profesion 1: ")),
-          ListTile(title: Text("Profesion 1: ")),
-          ListTile(title: Text("Profesion 1: ")),
+          Container(
+            width: 300,
+            height: 300,
+            child: ListView.builder(
+              itemCount: usuario.profesiones.length,
+              itemBuilder: (_, index) => ListTile(
+                title: Text("Profesion $index: ${usuario.profesiones[index]}"),
+              ),
+            ),
+          )
         ],
       ),
     );
