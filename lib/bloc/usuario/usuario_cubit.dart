@@ -18,7 +18,7 @@ class UsuarioCubit extends Cubit<UsuarioState> {
 
     //Crea un nuevo estado con la edad  modificada utilizando copyWith
     if (currentState is UsuarioActivo) {
-      final newUser = currentState.usuario.copyWith(edad: 50);
+      final newUser = currentState.usuario.copyWith(edad: edad);
       emit(UsuarioActivo(newUser));
     }
   }
