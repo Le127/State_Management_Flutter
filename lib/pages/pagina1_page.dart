@@ -46,9 +46,18 @@ class InformacionUsuario extends StatelessWidget {
           Text("Profesiones",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
-          ListTile(title: Text("Profesion 1: ")),
-          ListTile(title: Text("Profesion 1: ")),
-          ListTile(title: Text("Profesion 1: ")),
+          SingleChildScrollView(
+            child: Container(
+              height: 300,
+              width: 300,
+              child: ListView.builder(
+                itemCount: this.usuario.profesiones.length,
+                itemBuilder: (_, index) => ListTile(
+                    title: Text(
+                        "Profesion ${index + 1}: ${this.usuario.profesiones[index]} ")),
+              ),
+            ),
+          )
         ],
       ),
     );

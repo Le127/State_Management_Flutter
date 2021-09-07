@@ -26,6 +26,16 @@ class Pagina2Page extends StatelessWidget {
                     Usuario(
                         nombre: "Fernando", edad: 35, profesiones: ["Gamer"]),
                   );
+                  Get.snackbar("Nota", "Se cargó el usuario correctamente",
+                      snackPosition: SnackPosition.BOTTOM,
+                      duration: Duration(milliseconds: 1300),
+                      backgroundColor: Colors.white,
+                      boxShadows: [
+                        BoxShadow(color: Colors.black38, blurRadius: 10)
+                      ],
+                      margin:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                      barBlur: 10);
                 }),
             SizedBox(height: 10),
             MaterialButton(
@@ -40,7 +50,20 @@ class Pagina2Page extends StatelessWidget {
                 child: Text("Añadir profesion",
                     style: TextStyle(color: Colors.white)),
                 color: Colors.blue,
-                onPressed: () {}),
+                onPressed: () {
+                  usuarioCtrl.agregarProfesion("Portero");
+                }),
+
+            //
+            SizedBox(height: 30),
+            MaterialButton(
+                child: Text("Cambiar Theme",
+                    style: TextStyle(color: Colors.white)),
+                color: Colors.blue,
+                onPressed: () {
+                  Get.changeTheme(
+                      Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
+                }),
           ],
         ),
       ),
