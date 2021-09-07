@@ -4,12 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:estado_singleton_app/bloc/usuario/usuario_bloc.dart';
 import 'package:estado_singleton_app/models/usuario.dart';
 
-class Pagina2Page extends StatelessWidget {
+class Pagina2Page extends StatefulWidget {
+  @override
+  _Pagina2PageState createState() => _Pagina2PageState();
+}
+
+class _Pagina2PageState extends State<Pagina2Page> {
   @override
   Widget build(BuildContext context) {
     final usuarioBloc = BlocProvider.of<UsuarioBloc>(context);
     return Scaffold(
-      appBar: AppBar(title: Text("Pagina2")),
+      appBar: AppBar(
+          title: usuarioBloc.state.existeUsuario
+              ? Text(usuarioBloc.state.usuario!.nombre)
+              : Text("Pagina2")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -26,6 +34,8 @@ class Pagina2Page extends StatelessWidget {
                     profesiones: ["FullStack Dev"]);
 
                 usuarioBloc.add(ActivarUsuario(newUser));
+
+                setState(() {});
               },
             ),
 
