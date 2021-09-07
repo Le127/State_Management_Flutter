@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Pagina1Page extends StatelessWidget {
   @override
@@ -8,7 +9,8 @@ class Pagina1Page extends StatelessWidget {
       body: InformacionUsuario(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
-        onPressed: () => Navigator.pushNamed(context, "pagina2"),
+        onPressed: () => Get.toNamed('/pagina2',
+            arguments: {"nombre": "Fernando", "edad": 35}),
       ),
     );
   }
